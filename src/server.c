@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+
 #define PORT 8080
 #define BUFSIZE 1024
 
@@ -61,7 +62,7 @@ static int create_server_socket(void)
     int                server_fd;
     struct sockaddr_in address;
     int                opt = 1;
-    server_fd              = socket(AF_INET, SOCK_STREAM, 0);
+    server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(0 >= server_fd)
     {
         perror("Socket failed");
