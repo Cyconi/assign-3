@@ -1,12 +1,12 @@
-#include "../include/filter.h"
-#include <arpa/inet.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <arpa/inet.h>  // For inet_pton, struct sockaddr_in
+#include <signal.h>     // For signal handling
+#include <stdio.h>      // For printf, perror
+#include <stdlib.h>     // For exit, malloc, free
+#include <string.h>     // For memset, strlen, strtok_r
+#include <sys/socket.h> // For socket, bind, listen, accept
+#include <sys/types.h>  // For ssize_t, fork
+#include <unistd.h>     // For read, write, close
+#include "../include/filter.h" // Make sure this path is correct
 
 #define PORT 8080
 #define BUFSIZE 1024
@@ -60,7 +60,8 @@ static int create_server_socket(void)
     int                server_fd;
     struct sockaddr_in address;
     int                opt = 1;
-    server_fd              = socket(AF_INET, SOCK_STREAM, 0);
+
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if(server_fd == 0)
     {
         perror("Socket failed");
@@ -84,18 +85,14 @@ static int create_server_socket(void)
         perror("Bind failed");
         exit(EXIT_FAILURE);
     }
-    // Check server_fd if its valid
-    if(0 > server_fd)
-    {
-        perror("Socket is an invalid file descriptor");
-        exit(EXIT_FAILURE);
-    }
+
     // Listen
     if(listen(server_fd, 3) < 0)
     {
         perror("Listen failed");
         exit(EXIT_FAILURE);
     }
+
     return server_fd;
 }
 
