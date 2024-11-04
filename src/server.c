@@ -1,6 +1,5 @@
 #include "../include/filter.h"
 #include <arpa/inet.h>
-#include <ctype.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -133,7 +132,7 @@ int main(void)
         {
             close(server_fd);
             process_client_request(new_socket);
-            exit(0);
+            exit(EXIT_SUCCESS);
         }
         else
         {

@@ -8,7 +8,7 @@
 #define PORT 8080
 #define BUFSIZE 1024
 
-static int create_socket(void)
+static int create_client_socket(void)
 {
     int                sock;
     struct sockaddr_in serv_addr;
@@ -38,7 +38,7 @@ static int create_socket(void)
     return sock;
 }
 
-static void send_request(int sock, const char *conversion_type, const char *client_string)
+static void send_server_request(int sock, const char *conversion_type, const char *client_string)
 {
     char    buffer[BUFSIZE];
     char    response[BUFSIZE];
@@ -92,8 +92,8 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    sock = create_socket();
-    send_request(sock, conversion_type, client_string);
+    sock = create_client_socket();
+    send_server_request(sock, conversion_type, client_string);
 
     return 0;
 }
