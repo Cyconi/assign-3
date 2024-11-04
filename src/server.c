@@ -1,4 +1,5 @@
 #include "../include/filter.h"
+#include <netinet/in.h>
 #include <arpa/inet.h>
 #include <signal.h>
 #include <stdio.h>
