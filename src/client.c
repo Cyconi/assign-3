@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #define ADDRESS "127.0.0.1"
 #define PORT 8080
@@ -15,7 +16,7 @@ static int create_client_socket(void)
     int                sock;
     struct sockaddr_in serv_addr;
 
-    sock = socket(AF_INET, SOCK_STREAM, 0);
+    sock = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(sock < 0)
     {
         perror("Socket creation error");
