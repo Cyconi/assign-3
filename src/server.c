@@ -62,12 +62,11 @@ static int create_server_socket(void)
     struct sockaddr_in address;
     int                opt = 1;
     server_fd              = socket(AF_INET, SOCK_STREAM, 0);
-    if(server_fd == 0)
+    if(0 >= server_fd)
     {
         perror("Socket failed");
         exit(EXIT_FAILURE);
     }
-
     // Forcefully attaching socket to the port 8080
     if(setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))
     {
@@ -83,12 +82,6 @@ static int create_server_socket(void)
     if(bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
     {
         perror("Bind failed");
-        exit(EXIT_FAILURE);
-    }
-    // Check server_fd if its valid
-    if(0 > server_fd)
-    {
-        perror("Socket is an invalid file descriptor");
         exit(EXIT_FAILURE);
     }
     // Listen
