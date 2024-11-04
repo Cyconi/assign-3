@@ -1,11 +1,11 @@
 #include <arpa/inet.h>
+#include <fcntl.h>
 #include <netinet/in.h>
-#include <sys/socket.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/socket.h>
 #include <unistd.h>
-#include <fcntl.h>
 
 #define ADDRESS "127.0.0.1"
 #define PORT 8080

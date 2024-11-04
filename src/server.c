@@ -1,13 +1,13 @@
 #include "../include/filter.h"
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
 #include <sys/socket.h>
-#include <signal.h>
-#include <fcntl.h>
+#include <unistd.h>
 
 #define PORT 8080
 #define BUFSIZE 1024
@@ -61,10 +61,16 @@ static int create_server_socket(void)
     int                server_fd;
     struct sockaddr_in address;
     int                opt = 1;
-    server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
+    // server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if(0 >= server_fd)
     {
         perror("Socket failed");
+        exit(EXIT_FAILURE);
+    }
+    if(fcntl(server_fd, F_SETFD, FD_CLOEXEC) == -1)
+    {
+        perror("fcntl failed");
         exit(EXIT_FAILURE);
     }
     // Forcefully attaching socket to the port 8080
