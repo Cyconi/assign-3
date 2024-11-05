@@ -10,14 +10,17 @@
 #define ADDRESS "127.0.0.1"
 #define PORT 8080
 #define BUFSIZE 1024
+#ifndef SOCK_CLOEXEC
+    #define SOCK_CLOEXEC 02000000
+#endif
 
 static int create_client_socket(void)
 {
     int                sock;
     struct sockaddr_in serv_addr;
 
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    fcntl(sock, F_SETFD, FD_CLOEXEC);
+    sock = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
+
     if(sock < 0)
     {
         perror("Socket creation error");
