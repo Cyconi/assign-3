@@ -16,7 +16,8 @@ static int create_client_socket(void)
     int                sock;
     struct sockaddr_in serv_addr;
 
-    sock = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    fcntl(sock, F_SETFD, FD_CLOEXEC);
     if(sock < 0)
     {
         perror("Socket creation error");

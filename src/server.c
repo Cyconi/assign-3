@@ -62,7 +62,12 @@ static int create_server_socket(void)
     struct sockaddr_in address;
     int                opt = 1;
     // server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
+    if (server_fd < 0) {
+        perror("Socket creation failed");
+        exit(EXIT_FAILURE);
+    }
+
     if(0 >= server_fd)
     {
         perror("Socket failed");
