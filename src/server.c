@@ -10,9 +10,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-#ifndef SOCK_CLOEXEC
-    #define SOCK_CLOEXEC O_CLOEXEC
-#endif
 #define PORT 8080
 #define BUFSIZE 1024
 
@@ -65,8 +62,8 @@ static int create_server_socket(void)
     int                server_fd;
     struct sockaddr_in address;
     int                opt = 1;
-    // server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-    server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    //server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(server_fd < 0)
     {
         perror("Socket creation failed");
