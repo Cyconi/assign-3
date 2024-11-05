@@ -8,6 +8,8 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <sys/types.h>
+
 
 #define PORT 8080
 #define BUFSIZE 1024
@@ -63,7 +65,8 @@ static int create_server_socket(void)
     int                opt = 1;
     // server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
     server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-    if (server_fd < 0) {
+    if(server_fd < 0)
+    {
         perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
