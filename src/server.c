@@ -63,6 +63,7 @@ static int create_server_socket(void)
     struct sockaddr_in address;
     int                opt = 1;
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    fcntl(server_fd, F_SETFD, FD_CLOEXEC);
     //server_fd = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(server_fd < 0)
     {
