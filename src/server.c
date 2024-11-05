@@ -10,7 +10,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-
+#ifndef SOCK_CLOEXEC
+    #define SOCK_CLOEXEC O_CLOEXEC
+#endif
 #define PORT 8080
 #define BUFSIZE 1024
 
